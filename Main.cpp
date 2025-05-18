@@ -15,3 +15,38 @@ public:
 
     Card(string r, string s, int v) : rank(r), suit(s), value(v) {}
 };
+
+//The object constructor to build the entire deck
+class Deck {
+public:
+    vector<Card> cards; //the array to hold the deck of cards
+
+    // a function to build a card and the add it to the deck until all 52 are made
+    Deck() {
+        string suits[] = {"Hearts", "Diamonds", "Clubs", "Spades"};
+        string ranks[] = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
+        int values[] = {2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11}; // Ace is 11
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 13; j++) {
+                cards.push_back(Card(ranks[j], suits[i], values[j]));
+            }
+        }
+        shuffle();
+    }
+
+    //a function to mix the order of the cards in the deck 
+    void shuffle() {
+        for (int i = 0; i < cards.size(); i++) { // a for loop that loops as many time as the cards array is big
+            int r = rand() % cards.size();       // 'r' is = to a random number Modulo the cards array size
+            swap(cards[i], cards[r]);            // swaps the index of cards[current loop value] and cards[new random number]
+        }
+    }
+
+    //a function to get the top card after its been shuffle and place that into a Player's hand
+    Card deal() {
+        Card topCard = cards.back();
+        cards.pop_back();
+        return topCard;
+    }
+};
