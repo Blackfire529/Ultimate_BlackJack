@@ -50,3 +50,34 @@ public:
         return topCard;
     }
 };
+
+class Player {
+public:
+    vector<Card> hand;
+    int score;
+
+    Player() : score(0) {}
+
+    void addCard(Card card) {
+        hand.push_back(card);
+        score += card.value;
+        if (score > 21) {
+            for (auto c : hand) {
+                if (c.rank == "Ace" && c.value == 11) {
+                    c.value = 1; // Change Ace from 11 to 1
+                    score -= 10;
+                    break;
+                }
+            }
+        }
+    }
+
+    void showHand() {
+        for (auto card : hand) {
+            cout << card.rank << " of " << card.suit << endl;
+        }
+        cout << "Player Score: " << score << endl;
+    }
+};
+
+
