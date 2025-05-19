@@ -37,6 +37,7 @@ public:
 
     //a function to mix the order of the cards in the deck 
     void shuffle() {
+        srand(time(0));
         for (int i = 0; i < cards.size(); i++) { // a for loop that loops as many time as the cards array is big
             int r = rand() % cards.size();       // 'r' is = to a random number Modulo the cards array size
             swap(cards[i], cards[r]);            // swaps the index of cards[current loop value] and cards[new random number]
@@ -76,7 +77,7 @@ public:
         for (auto card : hand) {
             cout << card.rank << " of " << card.suit << endl;
         }
-        cout << "Player Score: " << score << endl;
+        cout << "Score: " << score << endl;
     }
 };
 
