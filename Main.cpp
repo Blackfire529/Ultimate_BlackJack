@@ -13,7 +13,7 @@ public:
     string rank;
     int value;
 
-    Card(string r, string s, int v) : rank(r), suit(s), value(v) {}
+    Card(string r, string s, int v) : suit(s), rank(r), value(v) {}
 };
 
 //The object constructor to build the entire deck
@@ -39,7 +39,7 @@ public:
     void shuffle() {
         srand(time(0));
         for (int i = 0; i < cards.size(); i++) { // a for loop that loops as many time as the cards array is big
-            int r = rand() % cards.size();       // 'r' is = to a random number Modulo the cards array size
+            int r = rand() % cards.size();       // 'r' is = to a random number Modulous the cards array size
             swap(cards[i], cards[r]);            // swaps the index of cards[current loop value] and cards[new random number]
         }
     }
@@ -81,4 +81,52 @@ public:
     }
 };
 
+int main() {
+    Deck deck;
+    Player player, dealer;
 
+    // the first card dealings
+    player.addCard(deck.deal());
+    player.addCard(deck.deal());
+    dealer.addCard(deck.deal());
+    dealer.addCard(deck.deal());
+
+    cout << "Your hand:" << endl;
+    player.showHand();
+    cout << "\nDealer's hand:" << endl;
+    cout << dealer.hand[0].rank << " of " << dealer.hand[0].suit << endl; // Show one dealer card
+
+    // Player's turn
+    char choice;
+    do {
+        cout << "Do you want to hit (h) or stand (s)? ";
+        cin >> choice;
+        if (choice == 'h') {
+            player.addCard(deck.deal());
+            cout << "Your hand:" << endl;
+            player.showHand();
+            if (player.score > 21) {
+                cout << "You bust! Dealer wins." << endl;
+                return 0;
+            }
+        }
+    } while (choice != 's');
+
+    // Dealer's turn
+    cout << "\nDealer's turn:" << endl;
+    while (dealer.score < 17) {
+        dealer.addCard(deck.deal());
+    }
+    dealer.showHand();
+
+    // Determine winner
+    if (dealer.score > 21 || player.score > dealer.score) {
+        cout << "You win!" << endl;
+    } else if (player.score < dealer.score) {
+        cout << "Dealer wins!" << endl;
+    } else {
+        cout << "It's a tie!" << endl;
+    }
+
+    return 0;
+}
