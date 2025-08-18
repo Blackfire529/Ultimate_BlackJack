@@ -39,7 +39,7 @@ public:
     void shuffle() {
         srand(time(0));
         for (int i = 0; i < cards.size(); i++) { // a for loop that loops as many time as the cards array is big
-            int r = rand() % cards.size();       // 'r' is = to a random number Modulous the cards array size
+            int r = rand() % cards.size();       // 'r' is = to a random number modulus the cards array size
             swap(cards[i], cards[r]);            // swaps the index of cards[current loop value] and cards[new random number]
         }
     }
@@ -88,6 +88,7 @@ int main() {
     // the first card dealings
     player.addCard(deck.deal());
     player.addCard(deck.deal());
+    
     dealer.addCard(deck.deal());
     dealer.addCard(deck.deal());
 
